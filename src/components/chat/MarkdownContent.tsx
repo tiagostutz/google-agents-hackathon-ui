@@ -8,10 +8,10 @@ interface MarkdownContentProps {
 
 const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
   return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      className="prose prose-sm max-w-none"
-      components={{
+    <div className="prose prose-sm max-w-none">
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
         // Headings
         h1: ({ node, ...props }) => (
           <h1 className="text-lg font-bold text-gray-900 mt-4 mb-2" {...props} />
@@ -91,10 +91,11 @@ const MarkdownContent: React.FC<MarkdownContentProps> = ({ content }) => {
         td: ({ node, ...props }) => (
           <td className="border border-gray-300 px-3 py-1.5 text-gray-800" {...props} />
         ),
-      }}
-    >
-      {content}
-    </ReactMarkdown>
+        }}
+      >
+        {content}
+      </ReactMarkdown>
+    </div>
   );
 };
 
