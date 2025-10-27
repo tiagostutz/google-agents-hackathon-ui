@@ -8,6 +8,8 @@ interface AppContextType {
   setActiveNav: (nav: string) => void;
   chatMessages: ChatMessage[];
   addChatMessage: (message: ChatMessage) => void;
+  isTyping: boolean;
+  setIsTyping: (isTyping: boolean) => void;
   alerts: Alert[];
   schedule: ScheduleItem[];
 }
@@ -16,6 +18,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [activeNav, setActiveNav] = useState('dashboard');
+  const [isTyping, setIsTyping] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-1',
@@ -37,6 +40,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
         setActiveNav,
         chatMessages,
         addChatMessage,
+        isTyping,
+        setIsTyping,
         alerts,
         schedule: todaySchedule,
       }}

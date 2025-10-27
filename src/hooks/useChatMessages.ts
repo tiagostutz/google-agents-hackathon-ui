@@ -6,14 +6,13 @@ import { queryAgent, isMedicationResponse, parseMedicationData } from '../servic
 const USE_REAL_API = import.meta.env.VITE_ENABLE_REAL_API === 'true';
 
 export const useChatMessages = () => {
-  const [isTyping, setIsTyping] = useState(false);
   const [conversationId, setConversationId] = useState<string | undefined>();
 
   const simulateBotResponse = async (
     userMessage: string,
-    addMessage: (message: ChatMessage) => void
+    addMessage: (message: ChatMessage) => void,
+    setIsTyping: (isTyping: boolean) => void
   ) => {
-    setIsTyping(true);
 
     try {
       if (USE_REAL_API) {
@@ -101,5 +100,5 @@ export const useChatMessages = () => {
     }
   };
 
-  return { isTyping, simulateBotResponse };
+  return { simulateBotResponse };
 };

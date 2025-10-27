@@ -2,9 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import { useApp } from '../../context/AppContext';
 import BotMessage from '../chat/BotMessage';
 import UserMessage from '../chat/UserMessage';
+import TypingIndicator from '../chat/TypingIndicator';
 
 const InteractiveDisplay: React.FC = () => {
-  const { chatMessages } = useApp();
+  const { chatMessages, isTyping } = useApp();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -13,7 +14,7 @@ const InteractiveDisplay: React.FC = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [chatMessages]);
+  }, [chatMessages, isTyping]);
 
   return (
     <div className="space-y-4">
@@ -24,6 +25,7 @@ const InteractiveDisplay: React.FC = () => {
           <UserMessage key={message.id} message={message} />
         )
       ))}
+      {isTyping && <TypingIndicator />}
       <div ref={messagesEndRef} />
     </div>
   );

@@ -5,7 +5,7 @@ import { useChatMessages } from '../../hooks/useChatMessages';
 
 const ChatInput: React.FC = () => {
   const [message, setMessage] = useState('');
-  const { addChatMessage } = useApp();
+  const { addChatMessage, setIsTyping } = useApp();
   const { simulateBotResponse } = useChatMessages();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -21,8 +21,9 @@ const ChatInput: React.FC = () => {
       };
       addChatMessage(userMsg);
 
-      // Simulate bot response
-      simulateBotResponse(message, addChatMessage);
+      // Show typing indicator and simulate bot response
+      setIsTyping(true);
+      simulateBotResponse(message, addChatMessage, setIsTyping);
 
       // Clear input
       setMessage('');
