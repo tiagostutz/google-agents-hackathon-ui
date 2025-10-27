@@ -32,13 +32,16 @@ export interface RoutingInfo {
   category: string;
   confidence: string;
   method: string;
-  raw_response: string;
+  raw_response?: string;
+  user_role?: string;
 }
 
 export interface AgentAPIResponse {
   conversation_id: string;
   query: string;
   answer: string;
+  answer_summary?: string;
+  answer_detailed?: string;
   agent: string;
   language: string;
   total_results: number;

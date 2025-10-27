@@ -89,6 +89,8 @@ export type ChatMessage = {
   id: string;
   type: MessageType;
   content: string;
+  contentSummary?: string;
+  contentDetailed?: string;
   timestamp: Date;
   scheduleData?: ScheduleData;
   protocolData?: ProtocolData;

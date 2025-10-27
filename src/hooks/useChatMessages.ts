@@ -34,6 +34,8 @@ export const useChatMessages = () => {
             id: `msg-${Date.now()}`,
             type: 'bot',
             content: apiResponse.answer,
+            contentSummary: apiResponse.answer_summary,
+            contentDetailed: apiResponse.answer_detailed,
             timestamp: new Date(apiResponse.timestamp),
             medicationData: medications,
           };
@@ -43,6 +45,8 @@ export const useChatMessages = () => {
             id: `msg-${Date.now()}`,
             type: 'bot',
             content: apiResponse.answer,
+            contentSummary: apiResponse.answer_summary,
+            contentDetailed: apiResponse.answer_detailed,
             timestamp: new Date(apiResponse.timestamp),
           };
         }

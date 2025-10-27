@@ -4,6 +4,7 @@ import { Bot } from 'lucide-react';
 import SchedulePanel from './SchedulePanel';
 import ProtocolPanel from './ProtocolPanel';
 import MedicationPanel from './MedicationPanel';
+import ExpandableAnswer from './ExpandableAnswer';
 
 interface BotMessageProps {
   message: ChatMessage;
@@ -19,11 +20,13 @@ const BotMessage: React.FC<BotMessageProps> = ({ message }) => {
 
       {/* Message Content */}
       <div className="flex-1 space-y-3">
-        {/* Text Message */}
+        {/* Text Message with Expandable Answer */}
         {message.content && (
-          <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-2xl">
-            <p className="text-sm text-gray-800 whitespace-pre-line">{message.content}</p>
-          </div>
+          <ExpandableAnswer
+            summary={message.contentSummary}
+            detailed={message.contentDetailed}
+            fallback={message.content}
+          />
         )}
 
         {/* Schedule Data Panel */}
