@@ -22,11 +22,20 @@ const ExpandableAnswer: React.FC<ExpandableAnswerProps> = ({ summary, detailed, 
 
   // Determine what to show
   const hasExpandable = summary && detailed && summary !== detailed;
-  const displayText = isExpanded ? (detailed || fallback) : (summary || fallback);
 
   return (
     <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-2xl">
-      <MarkdownContent content={displayText} />
+      {/* Summary - always visible, grayed out when expanded */}
+      <div className={isExpanded ? 'opacity-50' : ''}>
+        <MarkdownContent content={summary || fallback} />
+      </div>
+
+      {/* Detailed content - only shown when expanded */}
+      {isExpanded && detailed && (
+        <div className="mt-4 pt-4 border-t border-gray-300">
+          <MarkdownContent content={detailed} />
+        </div>
+      )}
 
       {hasExpandable && (
         <button
@@ -36,7 +45,7 @@ const ExpandableAnswer: React.FC<ExpandableAnswerProps> = ({ summary, detailed, 
           {isExpanded ? (
             <>
               <ChevronUp className="w-4 h-4" />
-              Show less
+              Hide details
             </>
           ) : (
             <>
