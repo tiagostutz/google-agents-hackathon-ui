@@ -18,3 +18,42 @@
     scrollbar-width: none;
   }
 }
+
+/* Markdown Content Styling */
+@layer components {
+  /* Remove default margins from first and last elements in markdown */
+  .prose > *:first-child {
+    margin-top: 0 !important;
+  }
+
+  .prose > *:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  /* Ensure list items have proper spacing */
+  .prose ul ul,
+  .prose ul ol,
+  .prose ol ul,
+  .prose ol ol {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  /* Nested lists */
+  .prose li > ul,
+  .prose li > ol {
+    margin-top: 0.25em;
+  }
+
+  /* Code blocks */
+  .prose pre {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+
+  /* Tables */
+  .prose table {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+  }
+}

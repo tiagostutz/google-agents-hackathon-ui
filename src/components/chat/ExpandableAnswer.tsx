@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import MarkdownContent from './MarkdownContent';
 
 interface ExpandableAnswerProps {
   summary?: string;
@@ -14,7 +15,7 @@ const ExpandableAnswer: React.FC<ExpandableAnswerProps> = ({ summary, detailed, 
   if (!summary && !detailed) {
     return (
       <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-2xl">
-        <p className="text-sm text-gray-800 whitespace-pre-line">{fallback}</p>
+        <MarkdownContent content={fallback} />
       </div>
     );
   }
@@ -25,7 +26,7 @@ const ExpandableAnswer: React.FC<ExpandableAnswerProps> = ({ summary, detailed, 
 
   return (
     <div className="bg-gray-100 rounded-2xl rounded-tl-none px-4 py-3 max-w-2xl">
-      <p className="text-sm text-gray-800 whitespace-pre-line">{displayText}</p>
+      <MarkdownContent content={displayText} />
 
       {hasExpandable && (
         <button
