@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { ChatMessage } from '../types';
 import { scheduleDataMock, protocolDataMock } from '../data/mockData';
-import { queryAgent, isMedicationResponse, parseMedicationData } from '../services/agentApi';
+import { queryAgent, researchAgent, isMedicationResponse, parseMedicationData } from '../services/agentApi';
 
 const USE_REAL_API = import.meta.env.VITE_ENABLE_REAL_API === 'true';
+const API_ENDPOINT_MODE = import.meta.env.VITE_API_ENDPOINT_MODE || 'query';
 
 export const useChatMessages = () => {
   const [conversationId, setConversationId] = useState<string | undefined>();
@@ -16,10 +17,18 @@ export const useChatMessages = () => {
 
     try {
       if (USE_REAL_API) {
-        // Use real API
-        const apiResponse = await queryAgent(userMessage, conversationId);
+        // Use real API - choose endpoint based on configuration
+        let apiResponse;
 
-        // Store conversation ID for context
+        if (API_ENDPOINT_MODE === 'research') {
+          // Use research endpoint (with conversation context)
+          apiResponse = await researchAgent(userMessage, conversationId);
+        } else {
+          // Use query endpoint (with conversation context)
+          apiResponse = await queryAgent(userMessage, conversationId);
+        }
+
+        // Store conversation ID for context (both endpoints return it)
         if (!conversationId) {
           setConversationId(apiResponse.conversation_id);
         }

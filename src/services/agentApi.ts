@@ -82,6 +82,42 @@ export async function queryAgent(
 }
 
 /**
+ * Send a research query to the agent API (uses multi-agent orchestration)
+ * This endpoint performs deeper research with multiple tool calls
+ *
+ * First call: No conversation_id (will create new session)
+ * Follow-up calls: Include conversation_id from previous response
+ */
+export async function researchAgent(
+  message: string,
+  conversationId?: string
+): Promise<AgentAPIResponse> {
+  // Build request body
+  const requestBody: Record<string, string> = {
+    query: message,
+  };
+
+  // Only include conversation_id if it exists (not first message)
+  if (conversationId) {
+    requestBody.conversation_id = conversationId;
+  }
+
+  const response = await fetch(`${API_BASE_URL}/research`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.statusText}`);
+  }
+
+  return response.json();
+}
+
+/**
  * Check if the response contains medication/pharmacy data
  */
 export function isMedicationResponse(response: AgentAPIResponse): boolean {
