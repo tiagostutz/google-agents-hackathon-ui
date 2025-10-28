@@ -23,7 +23,7 @@ export const AppProvider: React.FC<{ children: ReactNode }> = ({ children }) => 
     {
       id: 'msg-1',
       type: 'bot',
-      content: "Hello Sarah! I can see you're interested in schedule information. What would you like to know about your shift schedule or nursing procedures?",
+      content: "Hello Sarah! How can I help you today? Any patient you would like to start checking?",
       timestamp: new Date(),
     },
   ]);
